@@ -2,7 +2,7 @@
 
 const dateReducerDefaultState = 0;
 
-export default (state = mealsReducerDefaultState, action) => {
+export default (state = dateReducerDefaultState, action) => {
   switch (action.type) {
     case 'SET_DATE':
       return action.date;
