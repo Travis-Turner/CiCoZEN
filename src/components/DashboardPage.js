@@ -1,9 +1,14 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
-const DashboardPage = () => (
+const DashboardPage = (props) => (
   <div>
-    Dashboard page content
+    <p>CURRENT GOAL - {props.goal}</p>
   </div>
 );
 
-export default DashboardPage;
+const mapStateToProps = (state) => ({
+  goal: state.userSettings.goal
+});
+
+export default connect (mapStateToProps)(DashboardPage);
