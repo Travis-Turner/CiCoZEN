@@ -7,16 +7,22 @@ import { updateGoal, setGoal, startUpdateGoal, startSetGoal } from '../../action
 const uid = 'myUid';
 const createMockStore = configureMockStore([thunk]);
 const defaultAuthState = { auth: { uid } };
-
+let originalTimeout;
 
 beforeEach((done) => {
     const goal = 10;
+    originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
     database.ref(`users/${uid}/userSettings`).set({
         goal
     }).then(() => {
         done();
     })
   });
+
+afterEach(function() {
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;
+});
 
 test('should generate setGoal object', () => {
     const goal = 1500;
@@ -56,7 +62,7 @@ test('should get value of current goal', (done) => {
 
 test('should update current goal', (done) => {
     const store = createMockStore(defaultAuthState);
-    const goal = 10;
+    const goal = 5;
     store.dispatch(startUpdateGoal(goal)).then(() => {
         const action = store.getActions();
         expect(action[0]).toEqual({
