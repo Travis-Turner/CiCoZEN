@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-const DashboardPage = (props) => (
+export const DashboardPage = (props) => (
   <div>
     <p>CURRENT GOAL - {props.goal}</p>
   </div>

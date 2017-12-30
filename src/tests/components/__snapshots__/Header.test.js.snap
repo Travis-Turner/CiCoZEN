@@ -19,6 +19,12 @@ exports[`should render Header correctly 1`] = `
           Boilerplate
         </h1>
       </Link>
+      <Link
+        replace={false}
+        to="/settings"
+      >
+        Settings
+      </Link>
       <button
         className="button button--link"
         onClick={[Function]}
