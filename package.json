@@ -1,8 +1,8 @@
 {
-  "name": "cicozen",
+  "name": "boilerplate-react-app",
   "version": "1.0.0",
   "main": "index.js",
-  "author": "Travis Turner",
+  "author": "Andrew Mead",
   "license": "MIT",
   "scripts": {
     "build:dev": "webpack",
