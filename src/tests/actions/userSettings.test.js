@@ -3,7 +3,6 @@ import thunk from 'redux-thunk';
 import database from '../../firebase/firebase';
 import { updateGoal, setGoal, startUpdateGoal, startSetGoal } from '../../actions/userSettings';
 
-
 const uid = 'myUid';
 const createMockStore = configureMockStore([thunk]);
 const defaultAuthState = { auth: { uid } };
@@ -43,21 +42,18 @@ test('should generate updateGoal object', () => {
 });
 
 test('should get value of current goal', (done) => {
-    // const store = createMockStore(defaultAuthState);
-
-    // store.dispatch(startSetGoal()).then(() => {
-    //     const actions = store.getActions();
-    //     console.log(store)
-    //     expect(action[0]).toEqual({
-    //       type: 'SET_GOAL',
-    //         goal: 20
-    //     });
-    
-    //     return database.ref(`users/${uid}/userSettings/`).once('value');
-    //   }).then((snapshot) => {
-    //     done();
-    //   });
-    done();
+    const store = createMockStore(defaultAuthState);
+    store.dispatch(startSetGoal()).then(() => {
+        const action = store.getActions();
+        database.ref(`users/${uid}/userSettings/goal`).once('value').then((snapshot) => {
+            expect(action[0]).toEqual({
+                type: 'SET_GOAL',
+                goal: 10
+            });
+            expect(snapshot.val()).toBe(10);
+            done();
+        });  
+    })
 });
 
 test('should update current goal', (done) => {
