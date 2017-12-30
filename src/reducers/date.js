@@ -1,6 +1,8 @@
 // Date Reducer
 
-const dateReducerDefaultState = 0;
+import moment from 'moment';
+
+const dateReducerDefaultState = moment(0);
 
 export default (state = dateReducerDefaultState, action) => {
   switch (action.type) {

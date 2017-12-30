@@ -1,10 +1,14 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
+import moment from 'moment';
 import { SingleDatePicker } from 'react-dates';
 import MealList from './MealList';
-import moment from 'moment';
+import { startSetDate} from '../actions/date';
+import { history } from '../routers/AppRouter';
 
-export default class DashboardPage extends React.Component {
+
+class DashboardPage extends React.Component {
   constructor(props){
     super(props);
     this.state = {
@@ -12,10 +16,10 @@ export default class DashboardPage extends React.Component {
       currentDay: moment()
     }
   }
-  onDateChange = (currentDay) => {
-    if (currentDay) {
-      this.setState(() => ({ currentDay }));
-    }
+  onDateChange = (date) => {
+   //date is a moment object.
+    this.props.startSetDate(date);
+    this.setState(() => ({currentDay: date}));
   };
   onFocusChange = ({ focused }) => {
     this.setState(() => ({ calendarFocused: focused }));
@@ -23,6 +27,7 @@ export default class DashboardPage extends React.Component {
   render (){
     return (
       <div>
+      <h3>Current date: {this.state.currentDay.format('DD-MM-YYYY').toString()}</h3>
       <NavLink to="/add-meal">Add Meal</NavLink>
       <SingleDatePicker
               date={this.state.currentDay}
@@ -37,4 +42,18 @@ export default class DashboardPage extends React.Component {
     )
   }
 }
+
+const mapDispatchToProps = (dispatch) => ({
+  startSetDate: (date) => dispatch(startSetDate(date))
+});
+
+const mapStateToProps = (state) => {
+  return {
+    date: state.date
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(DashboardPage);
+
+
 
