@@ -38,13 +38,20 @@ export const startSetGoal = () => {
         const uid = getState().auth.uid;
         const goalRef = database.ref(`users/${uid}/userSettings/goal`);
         return goalRef.once('value').then((snapshot) => {
-            goal = snapshot.val();
-            if (goal){
+            const newGoal = snapshot.val();
+            if (newGoal){
+                return database.ref(`users/${uid}/userSettings`).set({
+                    goal: newGoal
+                }).then(() => {
+                    dispatch(setGoal(newGoal));               
+                });
+            }
+            else {
                 return database.ref(`users/${uid}/userSettings`).set({
                     goal
                 }).then(() => {
                     dispatch(setGoal(goal));               
-                })
+                });
             }
         })    
     }

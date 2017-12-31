@@ -3,6 +3,7 @@ import thunk from 'redux-thunk';
 import authReducer from '../reducers/auth';
 import userSettingsReducer from '../reducers/userSettings';
 import dateReducer from '../reducers/date';
+import dailyTotalsReducer from '../reducers/dailyTotals';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -11,7 +12,8 @@ export default () => {
     combineReducers({
       auth: authReducer,
       userSettings: userSettingsReducer,
-      currentDate: dateReducer
+      currentDate: dateReducer,
+      dailyTotals: dailyTotalsReducer
     }),
     composeEnhancers(applyMiddleware(thunk))
   );
