@@ -2,7 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { SingleDatePicker } from 'react-dates';
 import moment from 'moment';
-import { setCurrentDate } from '../actions/date';
+import { startSetCurrentDate } from '../actions/date';
+import { startSetTotals } from '../actions/dailyTotals';
 
 export class DashboardPage extends React.Component{
   constructor(props){
@@ -15,7 +16,9 @@ export class DashboardPage extends React.Component{
   onDateChange = (date) => {
     const newDate = date;
     this.setState(() => ({ date: newDate }));
-    this.props.setCurrentDate(newDate);
+    this.props.startSetCurrentDate(newDate).then(() => {
+      this.props.startSetTotals()
+    });
   }
   onFocusChange = ({ focused }) => {
     this.setState(() => ({ focused }));
@@ -34,18 +37,24 @@ export class DashboardPage extends React.Component{
           daySize={50}
           withPortal={true}
         />
-        <p>CURRENT GOAL - {this.props.goal}</p>
+        <p>CURRENT CALORIES - {this.props.currentCalories} </p>
+        <p>GOAL CALORIES - {this.props.goal}</p>
       </div>
     );
   }
 } 
 
 const mapStateToProps = (state) => ({
-  goal: state.userSettings.goal
+  goal: state.userSettings.goal,
+  currentCalories: state.dailyTotals.calories
+  // currentProtein: state.dailyTotals.totals.protein,
+  // currentCarbs: state.dailyTotals.totals.carbohydrates,
+  // currentFat: state.dailyTotals.totals.fat
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  setCurrentDate: (date) => dispatch((setCurrentDate(date)))
+  startSetCurrentDate: (date) => dispatch(startSetCurrentDate(date)),
+  startSetTotals: () => dispatch(startSetTotals())
 });
 
 export default connect (mapStateToProps, mapDispatchToProps)(DashboardPage);

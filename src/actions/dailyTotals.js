@@ -15,22 +15,24 @@ export const startSetTotals = () => {
     return (dispatch, getState) => {
         const uid = getState().auth.uid;
         const selectedDate = getState().currentDate;
-        const dateRef = database.ref(`users/${uid}/${selectedDate}`);
+        const dateRef = database.ref(`users/${uid}/days/${selectedDate}`);
         return dateRef.once('value').then((snapshot) => {
-            const newTotals = snapshot.val();
-            if (newTotals){
-                return database.ref(`users/${uid}/${selectedDate}`).set({
-                    totals: newTotals.totals
+            let oldTotals;
+            //Check to see if totals for this day already exist in database.
+            try {
+                oldTotals = snapshot.val().totals;
+                return database.ref(`users/${uid}/days/${selectedDate}`).set({
+                    totals: oldTotals
                 }).then(() => {
-                    dispatch(setTotals(newTotals));               
-                })
-            } else {
-                return database.ref(`users/${uid}/${selectedDate}`).set({
+                    dispatch(setTotals(oldTotals));               
+                });
+            } catch (e) {
+                return database.ref(`users/${uid}/days/${selectedDate}`).set({
                     totals
                 }).then(() => {
                     dispatch(setTotals(totals));               
-                })
-            }
-        })    
+                });
+            }       
+        });
     }
 }
