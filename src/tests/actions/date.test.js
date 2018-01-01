@@ -6,7 +6,7 @@ import { setCurrentDate, startSetCurrentDate } from '../../actions/date';
 
 const createMockStore = configureMockStore([thunk]);
 
-const uid = 'myUid';
+const uid = 'dateTestUID';
 const defaultAuthState = { auth: { uid }};
 
 test('should set up setDate action object', () => {
