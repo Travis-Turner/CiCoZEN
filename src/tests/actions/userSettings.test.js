@@ -3,7 +3,7 @@ import thunk from 'redux-thunk';
 import database from '../../firebase/firebase';
 import { updateGoal, setGoal, startUpdateGoal, startSetGoal } from '../../actions/userSettings';
 
-const uid = 'myUid';
+const uid = 'userSettingsTestUID';
 const createMockStore = configureMockStore([thunk]);
 const defaultAuthState = { auth: { uid } };
 let originalTimeout;
