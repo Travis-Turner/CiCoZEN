@@ -8,7 +8,8 @@ export const setCurrentDate = (date) => ({
 export const startSetCurrentDate = (date) => {
     return (dispatch, getState) => {
         const uid = getState().auth.uid;
-        return database.ref(`users/${uid}/userSettings`).once('value').then((snapshot) => {
+        // return a promise
+        return database.ref(`users/${uid}`).once('value').then(() => {
             dispatch(setCurrentDate(date));
         });
     }
