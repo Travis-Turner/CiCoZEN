@@ -13,7 +13,8 @@ export default () => {
       auth: authReducer,
       userSettings: userSettingsReducer,
       currentDate: dateReducer,
-      dailyTotals: dailyTotalsReducer
+      dailyTotals: dailyTotalsReducer,
+      meals: mealsReducer
     }),
     composeEnhancers(applyMiddleware(thunk))
   );
