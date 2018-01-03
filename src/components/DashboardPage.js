@@ -4,6 +4,7 @@ import { SingleDatePicker } from 'react-dates';
 import moment from 'moment';
 import { startSetCurrentDate } from '../actions/date';
 import { startSetTotals } from '../actions/dailyTotals';
+import { Link } from 'react-router-dom';
 
 export class DashboardPage extends React.Component{
   constructor(props){
@@ -26,7 +27,9 @@ export class DashboardPage extends React.Component{
   render (){
     return (
       <div>
-        
+        <Link to="/addMeal">
+          Add Meal
+        </Link>
         <SingleDatePicker
           date={this.state.date}
           onDateChange={this.onDateChange}

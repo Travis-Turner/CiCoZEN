@@ -1,4 +1,4 @@
 export const addMeal = (meal) => ({
-    type: 'SET_CURRENT_DATE',
+    type: 'ADD_MEAL',
     meal
 });

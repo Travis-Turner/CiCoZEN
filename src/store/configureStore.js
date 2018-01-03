@@ -4,6 +4,7 @@ import authReducer from '../reducers/auth';
 import userSettingsReducer from '../reducers/userSettings';
 import dateReducer from '../reducers/date';
 import dailyTotalsReducer from '../reducers/dailyTotals';
+import mealsReducer from '../reducers/meals';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
