@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { addMeal } from '../actions/meals';
+import { startAddMeal } from '../actions/meals';
 
 export class AddMeal extends React.Component {
     constructor(props){
@@ -35,7 +35,7 @@ export class AddMeal extends React.Component {
             protein,
             fat
         }
-        this.props.addMeal(meal); 
+        this.props.startAddMeal(meal); 
         this.props.history.push('/');
     }
     render(){
@@ -61,7 +61,7 @@ export class AddMeal extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    addMeal: (meal) => dispatch(addMeal(meal))
+    startAddMeal: (meal) => dispatch(startAddMeal(meal))
   });
   
   export default connect (undefined, mapDispatchToProps)(AddMeal);
