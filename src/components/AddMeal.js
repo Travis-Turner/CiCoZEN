@@ -5,17 +5,29 @@ import { addMeal } from '../actions/meals';
 export class AddMeal extends React.Component {
     constructor(props){
         super(props);
-
+        this.state = {
+            error: ''
+        }
     }
     handleSubmit = (e) => {
         e.preventDefault();
-        
-        const name = e.target.elements[0].name;
-        const calories = e.target.elements[1].name;
-        const carbohydrates = e.target.elements[2].name;
-        const protein = e.target.elements[3].name;
-        const fat = e.target.elements[4].name;
-
+        const name = e.target.elements[0].value;
+        const calories = e.target.elements[1].value;
+        const carbohydrates = e.target.elements[2].value;
+        const protein = e.target.elements[3].value;
+        const fat = e.target.elements[4].value;
+        //Form validation
+        if (!name){
+            return this.setState(() => ({
+                error: 'Please enter a name for your meal.'
+            }));
+        } 
+        if (!calories){
+            return this.setState(() => ({
+                error: 'You must provide the number of calories in your meal.'
+            }))
+        }
+        //Add meal
         const meal = {
             name,
             calories,
@@ -23,12 +35,14 @@ export class AddMeal extends React.Component {
             protein,
             fat
         }
-        this.props.addMeal(meal);
+        this.props.addMeal(meal); 
+        this.props.history.push('/');
     }
     render(){
         return (
             <div>
                 <form onSubmit={this.handleSubmit}>
+                    {this.state.error && <p>{this.state.error}</p>}
                     <p>Name:</p>
                     <input name='name' type='text' />
                     <p>Calories:</p>
