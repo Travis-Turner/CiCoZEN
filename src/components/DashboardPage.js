@@ -10,7 +10,7 @@ export class DashboardPage extends React.Component{
   constructor(props){
     super(props);
     this.state = {
-      date: moment(),
+      date: moment(this.props.currentDate),
       focused: false
     }
   }

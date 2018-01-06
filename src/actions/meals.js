@@ -28,10 +28,11 @@ export const startGetMeals = () => {
         const uid = getState().auth.uid;
         const currentDate = getState().currentDate;
         return database.ref(`users/${uid}/days/${currentDate}`).once('value').then((snapshot) => {
-            const mealObj = snapshot.val().meals;
+            let mealObj;
             let meals;
             //Retrieve meals from database if they exist
             try {
+                mealObj = snapshot.val().meals;
                 meals = Object.keys(mealObj).map((id) => mealObj[id]);
             } catch (e) {
                 meals = [];
