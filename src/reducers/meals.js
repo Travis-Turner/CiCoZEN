@@ -7,6 +7,8 @@ export default (state = mealsReducerDefaultState, action) => {
                 ...state,
                 action.meal
             ]
+        case 'GET_MEALS':
+            return action.meals;
         default:
             return state;
     }

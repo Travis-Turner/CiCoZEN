@@ -21,13 +21,13 @@ export const startSetTotals = () => {
             //Check to see if totals for this day already exist in database.
             try {
                 oldTotals = snapshot.val().totals;
-                return database.ref(`users/${uid}/days/${selectedDate}`).set({
+                return database.ref(`users/${uid}/days/${selectedDate}`).update({
                     totals: oldTotals
                 }).then(() => {
                     dispatch(setTotals(oldTotals));               
                 });
             } catch (e) {
-                return database.ref(`users/${uid}/days/${selectedDate}`).set({
+                return database.ref(`users/${uid}/days/${selectedDate}`).update({
                     totals
                 }).then(() => {
                     dispatch(setTotals(totals));               

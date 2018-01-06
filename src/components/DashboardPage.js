@@ -49,7 +49,8 @@ export class DashboardPage extends React.Component{
 
 const mapStateToProps = (state) => ({
   goal: state.userSettings.goal,
-  currentCalories: state.dailyTotals.calories
+  currentCalories: state.dailyTotals.calories,
+  currentDate: state.currentDate
   // currentProtein: state.dailyTotals.totals.protein,
   // currentCarbs: state.dailyTotals.totals.carbohydrates,
   // currentFat: state.dailyTotals.totals.fat

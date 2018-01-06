@@ -11,6 +11,7 @@ import { firebase } from './firebase/firebase';
 import LoadingPage from './components/LoadingPage';
 import { startSetGoal } from './actions/userSettings';
 import { startSetTotals } from './actions/dailyTotals';
+import { startGetMeals } from './actions/meals';
 
 const store = configureStore();
 const jsx = (
@@ -34,6 +35,8 @@ firebase.auth().onAuthStateChanged((user) => {
     store.dispatch(login(user.uid));
     store.dispatch(startSetGoal()).then(() => {
       return store.dispatch(startSetTotals());
+    }).then(() => {
+      return store.dispatch(startGetMeals());
     }).then(() => {
       renderApp();
       if (history.location.pathname === '/') {
