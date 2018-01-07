@@ -5,6 +5,7 @@ import moment from 'moment';
 import { startSetCurrentDate } from '../actions/date';
 import { startSetTotals } from '../actions/dailyTotals';
 import { Link } from 'react-router-dom';
+import getDailyTotals from '../selectors/getDailyTotals';
 
 export class DashboardPage extends React.Component{
   constructor(props){
@@ -40,21 +41,21 @@ export class DashboardPage extends React.Component{
           daySize={50}
           withPortal={true}
         />
-        <p>CURRENT CALORIES - {this.props.currentCalories} </p>
+        <p>CURRENT CALORIES - {this.props.dailyTotals.calories} </p>
         <p>GOAL CALORIES - {this.props.goal}</p>
       </div>
     );
   }
 } 
 
-const mapStateToProps = (state) => ({
-  goal: state.userSettings.goal,
-  currentCalories: state.dailyTotals.calories,
-  currentDate: state.currentDate
-  // currentProtein: state.dailyTotals.totals.protein,
-  // currentCarbs: state.dailyTotals.totals.carbohydrates,
-  // currentFat: state.dailyTotals.totals.fat
-});
+const mapStateToProps = (state) => {
+  const dailyTotals = getDailyTotals(state.meals);
+  return {
+    goal: state.userSettings.goal,
+    currentDate: state.currentDate,
+    dailyTotals
+  }
+};
 
 const mapDispatchToProps = (dispatch) => ({
   startSetCurrentDate: (date) => dispatch(startSetCurrentDate(date)),
