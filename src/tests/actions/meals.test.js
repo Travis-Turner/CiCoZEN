@@ -47,3 +47,23 @@ test('should get up getMeals object', () => {
         meals
     });
 });
+
+test('should dispatch startGetMeals and retrieve meals from database', (done) => {
+    const store = createMockStore(defaultAuthState);    
+    //add meal to database
+    store.dispatch(startAddMeal(meals[1])).then(() => {
+        //Get meals
+        store.dispatch(startGetMeals()).then(() => {
+            database.ref(`users/${uid}/days/${currentDate}`).once('value').then((snapshot) => {
+                const action = store.getActions();
+                expect(action[1]).toEqual({
+                    type: 'GET_MEALS',
+                    meals: [meals[1]]
+                });
+                const refKey = action[0].meal.id;
+                expect(snapshot.val().meals[refKey]).toEqual(meals[1]);
+                done();
+            });
+        });
+    });
+})
