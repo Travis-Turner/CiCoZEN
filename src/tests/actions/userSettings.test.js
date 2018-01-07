@@ -2,6 +2,7 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import database from '../../firebase/firebase';
 import { updateGoal, setGoal, startUpdateGoal, startSetGoal } from '../../actions/userSettings';
+import meals from '../fixtures/meals';
 
 const uid = 'userSettingsTestUID';
 const createMockStore = configureMockStore([thunk]);
